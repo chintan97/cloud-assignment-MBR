@@ -53,5 +53,14 @@ module.exports.datastores = {
 
   },
 
+  employerDB:{
+    adapter: 'sails-mysql',
+    hots: "nimbusdatabase.mysql.database.azure.com",
+    port: 3306,
+    user: "nimbus@nimbusdatabase",
+    password: "Nimbus@group",
+    database: "employer",
+  },
+
 
 };
