@@ -37,7 +37,7 @@ module.exports = {
       example: 'John'
     },
 
-    userLasName:{
+    userLastName:{
       type: 'string',
       required: true,
       maxLength: 30,
