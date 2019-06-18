@@ -35,7 +35,7 @@ module.exports.datastores = {
   /*
   default: {
     adapter: 'sails-mysql',
-    hots: "localhost",
+    host: "localhost",
     port: 3306,
     user: "root",
     password: "",
@@ -45,11 +45,11 @@ module.exports.datastores = {
 
   employerDB:{
     adapter: 'sails-mysql',
-    hots: "nimbusdatabase.mysql.database.azure.com",
+    host: 'nimbus06.mysql.database.azure.com',
     port: 3306,
-    user: "nimbus@nimbusdatabase",
-    password: "Nimbus@group",
-    database: "employer",
+    user: 'smit12@nimbus06',
+    password: 'Smit@1208',
+    database: 'employer',
   },
   
 
