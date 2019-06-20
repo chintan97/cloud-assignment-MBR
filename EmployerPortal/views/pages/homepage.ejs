@@ -75,8 +75,8 @@
               if(data.Authorized == true){
 
                 console.log("[authorizeUser] Authorized TRUE");
-
-                window.location.assign("/form")
+                
+                window.location.assign("/form?id="+userId);
 
               //User is not Authorized
               }else if(data.Authorized == false){
