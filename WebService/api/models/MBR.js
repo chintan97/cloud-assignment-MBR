@@ -18,7 +18,7 @@ module.exports = {
       required:true
     },
     phone:{
-      type:"number",
+      type:"string",
       required:true
     },
     mailing_address:{
@@ -35,7 +35,6 @@ module.exports = {
     },
     status:{
       type:"string",
-      required:true
     }
   },
 };
