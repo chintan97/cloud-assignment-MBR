@@ -9,15 +9,25 @@
                       $.ajax({
                           type : "POST",
                           // web service url
-                          url:"",
-                          data : $("loginform").serialize(),
+                          url:"http://localhost:3000/check_credentials",
+                          data : {
+                            "user_id":$("#user_id").val(),
+                            "password":$("#password").val(),
+                          },
                           beforeSend : function() {
                                 
                           },
-                          success : function(response245) {
+                          success : function(response) {
+                              console.log(response);
+                            
+                              if (response.error_message != ''){
+                                $("#resOutput").html(response.error_message);
+                              }
+                              else{
+                                localStorage.setItem("user_data",JSON.stringify(response));
+                                window.location.href = "ApplicationStatus";
+                              }
                               
-                              
-                              $(".post_submitting").fadeOut(1000);
                           }
                       });
                       e.preventDefault();
@@ -34,7 +44,7 @@
             <form method="post" id="loginform">
                 <div class="form-group">
                     <label>Application ID</label>
-                    <input type="number" id="id" name="id" class="form-control"  placeholder="Enter confirmation ID of your application" required ><br>
+                    <input type="number" id="user_id" name="user_id" class="form-control"  placeholder="Enter confirmation ID of your application" required ><br>
                 <div class="form-group">
                     <label>Password</label>
                     <input type="password" id="password" name="password" class="form-control"  minlength="8" placeholder="Enter your password" required >

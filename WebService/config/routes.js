@@ -20,7 +20,9 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
-  'POST /FundsForm' : 'MBRController.getFundData'
+  'POST /FundsForm' : 'MBRController.newApplication',
+  'POST /check_credentials' : 'MBRController.check_credentials',
+  '/ApplicationStatus': { view: 'pages/ApplicationStatus' }
 
 
   /***************************************************************************
