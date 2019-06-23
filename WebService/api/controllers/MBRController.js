@@ -50,7 +50,7 @@ module.exports = {
                 error_message = "Something went wrong while fetching data.";
             }
             else if (!data){
-                error_message = "The credentials are not matched. Try again with currect credentials.";
+                error_message = "The credentials are not matched. Try again with correct credentials.";
             }
             if (error_message == ''){
                 return res.send({
@@ -67,7 +67,80 @@ module.exports = {
             }
             
         });
-    }
+    },
+
+    validateApplication: async function(req, res){
+        // Fetch variables
+        var employer_name = req.param("employer_name");
+        var mortgageID = req.param("mortgageID");
+        var webServiceLinkID = req.param("webServiceLink").split('/')[4];   // https://stackoverflow.com/a/25965556
+        var employeeName = req.param("employeeName");
+        var authenticated = false;   // will be set to true if request is accepted
+        var error_message = '';
+
+        
+        if (mortgageID == webServiceLinkID){
+            // Check credentials
+            MBR.findOne({id: mortgageID, name: employeeName, employer_name: employer_name, status: "pending"}).exec(async function(err, data){
+                if (err){
+                    error_message = "Something went wrong while fetching data.";
+                }
+                else if (!data){
+                    error_message = "Wrong data submitted. Application has been rejected.";
+                    // https://sailsjs.com/documentation/reference/waterline-orm/models/update-one
+                    var updateRequest = await MBR.updateOne({id: mortgageID, status: "pending"}).set({status: "rejected"});
+                    if (updateRequest){
+                        return res.send({
+                            status: "REJECTED",
+                            error_message: error_message
+                        });
+                    }
+                    else{
+                        error_message = "Something went wrong while updating request. Please try again later or check broker page for status.";
+                        return res.send({
+                            status: "ERROR",
+                            error_message: error_message
+                        });
+                    }
+                }
+
+                if (error_message == ''){
+
+                    // https://sailsjs.com/documentation/reference/waterline-orm/models/update-one
+                    var updateRequest = await MBR.updateOne({id: mortgageID, status: "pending"}).set({status: "accepted"});
+                    if (updateRequest){
+                        authenticated = true;
+                        return res.send({
+                            status: "ACCEPTED",
+                            error_message: error_message
+                        });
+                    }
+                    else{
+                        error_message = "Something went wrong while updating request. Please try again later or check broker page for status.";
+                        return res.send({
+                            status: "ERROR",
+                            error_message: error_message
+                        });
+                    }
+                }
+                else {
+                    return res.send({
+                        status: "ERROR",
+                        error_message: error_message
+                    });  
+                }
+            });
+
+        }
+        else {
+            error_message = "The credentials are not matched. Try again with correct credentials.";
+            return res.send({
+                status: "ERROR",
+                error_message: error_message
+            });
+        }
+
+    },
 
 };
 

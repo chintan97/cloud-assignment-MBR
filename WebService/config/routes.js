@@ -22,6 +22,7 @@ module.exports.routes = {
   '/': { view: 'pages/homepage' },
   'POST /FundsForm' : 'MBRController.newApplication',
   'POST /check_credentials' : 'MBRController.check_credentials',
+  'POST /validateApplication' : 'MBRController.validateApplication',
   '/ApplicationStatus': { view: 'pages/ApplicationStatus' }
 
 
