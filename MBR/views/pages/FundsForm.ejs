@@ -20,10 +20,13 @@
                           beforeSend : function() {
                                 
                           },
-                          success : function(response245) {
-                              alert("Application successfully submitted.");
-                              
-                              $(".post_submitting").fadeOut(1000);
+                          success : function(response) {
+                              $("#fundsform")[0].reset();
+                              $("#showApplicationID").html('<p>Thanks for submitting application</p>' +
+                                'Your application ID: ' + response.data.id);
+                              $("#showApplicationLink").html('Your application URL: http://example.com/authenticate/' + response.data.id +
+                                '<p>You need to submit details to your employer portal to approve the application.</p>' +
+                                '<p>You can check application status by logging in to our portal.</p>');
                           }
                       });
                       e.preventDefault();
@@ -64,10 +67,8 @@
                 </div>
                 <center><input type="submit" value="Submit" class="btn btn-success"></center>
               </form>
+
+              <p id="showApplicationID"></p>
+              <p id="showApplicationLink"></p>
         </div>
-        <div id="response" class="col-md-6 container">
-            <center><h2 id="resHeader"></h2></center>
-            <p id="resOutput"></p>
-            
-      </div>
     </div>

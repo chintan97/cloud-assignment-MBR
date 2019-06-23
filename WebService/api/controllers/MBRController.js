@@ -7,7 +7,7 @@
 
 module.exports = {
   
-    newApplication: function(req,res){
+    newApplication: async function(req,res){
 
         // Fetch data of the form
         var email = req.param('email');
@@ -27,12 +27,15 @@ module.exports = {
             employer_name:employer,
             password:password,
             status:"pending"
-        },function(err, MBRdata){
+        }, async function(err, MBRdata){
             if(err){
-                return res.json(err);
+                return res.send({data: err});
             }
             
-            return res.json(MBRdata);
+            var fetch_data = await MBR.findOne({name:name, email:email, phone:phone, mailing_address:address,
+                employer_name:employer, password:password, status:"pending"}, function(err, row){
+                    return res.send({data: row});
+                });
         });
 
     },
