@@ -44,26 +44,38 @@
 </div>
     </div>
 
-    
+    <p id="result"></p>
     <script type="text/javascript">
 
 $(document).ready(function(){
     $('#kemcho').submit(function(e){
       var m = $('#mid').val();
       var name = $('#user').text();
-      console.log(name)
+      var webserviceurl = $('#lnk').val();
+
+      console.log(webserviceurl)
       e.preventDefault();
      $.ajax({
-            url: 'http://localhost:1234/employer/authenticate',
+            url: 'http://localhost:1338/validateApplication',
             type: 'POST', 
             data: {
-                    "mortgageid": m,
-                    "username": name
+                    "mortgageID": m,
+                    "employeeName": name,
+                    "webServiceLink":webserviceurl,
+                    "employer_name":"DAL"
                     },
             dataType: 'json',
             crossDomain:true,
             success: function(data){
-               $("#result").html("Result : " + data.bmi);}
+
+              if(data.status == "ERROR")
+              {
+                $("#result").html("Error : " + data.error_message);
+              }
+              else{
+                $("#result").html("Result : " + data.status);
+              }
+               }
           });
           e.preventDefault();
      });
