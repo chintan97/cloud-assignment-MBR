@@ -16,6 +16,8 @@ module.exports = {
         var phone = req.param('phone');
         var employer = req.param('employer');
         var password = req.param('password');
+        var employment_duration = req.param("duration");
+        var employee_salary = req.param("salary");
         
         // ORM to insert data into table
         // Here, the status will be "pending" for new application
@@ -26,6 +28,8 @@ module.exports = {
             mailing_address:address,
             employer_name:employer,
             password:password,
+            employment_duration:employment_duration,
+            employee_salary:employee_salary,
             status:"pending"
         }, async function(err, MBRdata){
             if(err){
@@ -33,7 +37,8 @@ module.exports = {
             }
             
             var fetch_data = await MBR.findOne({name:name, email:email, phone:phone, mailing_address:address,
-                employer_name:employer, password:password, status:"pending"}, function(err, row){
+                employer_name:employer, password:password, employment_duration:employment_duration,
+                employee_salary:employee_salary, status:"pending"}, function(err, row){
                     return res.send({data: row});
                 });
         });

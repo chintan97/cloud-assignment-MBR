@@ -33,6 +33,12 @@ module.exports = {
       type:"string",
       required:true
     },
+    employment_duration:{
+      type:"string",
+    },
+    employee_salary:{
+      type:"string",
+    },
     status:{
       type:"string",
     }
