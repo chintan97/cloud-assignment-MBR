@@ -29,7 +29,8 @@
                     </div>
                 
                     <br>
-                    <button type="submit" class="btn btn-primary">Accept</button>
+                    <p>By clicking "Agree" I give consent to providing personal information to an external party.</p>
+                    <button type="submit" class="btn btn-primary">Agree</button>
                   </form>
           
             </div>
@@ -45,42 +46,83 @@
     </div>
 
     <p id="result"></p>
-    <script type="text/javascript">
 
-$(document).ready(function(){
-    $('#kemcho').submit(function(e){
-      var m = $('#mid').val();
-      var name = $('#user').text();
-      var webserviceurl = $('#lnk').val();
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript">
 
-      console.log(webserviceurl)
-      e.preventDefault();
-     $.ajax({
-            url: 'http://localhost:1338/validateApplication',
-            type: 'POST', 
-            data: {
-                    "mortgageID": m,
-                    "employeeName": name,
-                    "webServiceLink":webserviceurl,
-                    "employer_name":"DAL"
-                    },
-            dataType: 'json',
-            crossDomain:true,
-            success: function(data){
+(function($){
 
-              if(data.status == "ERROR")
-              {
-                $("#result").html("Error : " + data.error_message);
-              }
-              else{
-                $("#result").html("Result : " + data.status);
-              }
-               }
-          });
-          e.preventDefault();
-     });
-  });
+  function retrieveEmployeeData(e){
+    console.log("[retrieveEmployeeData] Function Called");
+    var userId = $('#user').text();
+    var myData = { id: userId };
 
+    $.ajax({
+        url: 'http://localhost:1338/employer/retrieveData',
+        dataType: 'jsonp',
+        type: 'POST',
+        data: myData,
+        success: function(data){
 
+          console.log("[retreiveData] Success");
+          submitEmployeeToBrocker(e, data.Employee);
+
+        },
+        error: function(error){
+            console.log("[retreiveData] Error occured");
+            console.log(error);
+        }
+    });
+
+    //prevent the error from taking the user from the default page
+    e.preventDefault();
+  }
+
+  function submitEmployeeToBrocker(e, employee){
+    
+    console.log("[submitEmployeeToBrocker] Function Called");
+    
+    var mortgageID = $('#mid').val();
+    var webserviceurl = $('#lnk').val();
+
+    console.log(webserviceurl)
+    e.preventDefault();
+    $.ajax({
+        //url: 'http://localhost:1338/validateApplication',
+        url: webserviceurl + "/validateApplication",
+        type: 'POST', 
+        data: {
+          "mortgageID": mortgageID,
+          "employeeName": employee.userId,
+          "webServiceLink":webserviceurl,
+          "employer_name": employee.employerName,
+          "salary": employee.salary,
+          "employment_length": employee.employmentLengthYears,
+        },
+        dataType: 'json',
+        crossDomain:true,
+        success: function(data){
+
+          if(data.status == "ERROR")
+          {
+            $("#result").html("Error : " + data.error_message);
+          }
+          else{
+            $("#result").html("Result : " + data.status);
+          }
+        },
+        error: function(error){
+          $("#result").html("Error : Oops, there seems to be an error with the web service. Please try again later.");
+          console.log("[submitEmployeeToBrocker] Error occured");
+          console.log(error);
+        }
+    });
+
+    e.preventDefault();
+  }
+
+  $('#kemcho').submit( retrieveEmployeeData );
+
+})(jQuery);
 
 </script>
