@@ -45,6 +45,38 @@ module.exports = {
             });
 
         });
+    },
+
+    retrieveData :function(req, res){
+
+        console.log("[retrieveData] Endpoint Reached");
+
+        var id = req.param('id');
+        var errorMessage = "";
+
+        Employer.findOne({ userId: id }).exec(function(err,employee){
+
+            //Database error
+            if(err){
+                errorMessage =  "We are having troubles connecting to the database, please try again later";
+            }
+            
+    
+            if(employee){
+                errorMessage = "Success"
+            }else{
+                errorMessage = "Employee not found";
+            }
+
+            //return results
+            return res.jsonp(
+            {
+                Employee: employee,
+                ErrorMessage: errorMessage
+            });
+
+        });
+
     }
   
 };
