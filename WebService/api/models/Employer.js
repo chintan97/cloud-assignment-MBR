@@ -44,6 +44,18 @@ module.exports = {
       example: 'Smith'
     },
 
+    salary:{
+      type: 'number',
+      required: true,
+      example: '30000'
+    },
+
+    employmentLengthYears:{
+      type: 'number',
+      required: true,
+      example: 2,
+    }
+
   },
   datastore: 'employerDB'
 
