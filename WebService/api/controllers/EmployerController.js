@@ -4,6 +4,8 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
+var Logger = require('./LoggerController');
+
 
 module.exports = {
 
@@ -64,6 +66,8 @@ module.exports = {
     
             if(employee){
                 errorMessage = "Success"
+                Logger.log("Employer","Success");
+
             }else{
                 errorMessage = "Employee not found";
             }
