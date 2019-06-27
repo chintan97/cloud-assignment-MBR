@@ -10,8 +10,6 @@ module.exports = {
 
         var newlogMessage = '[' + location + '] ' + logMessage;
 
-        console.log("newlogMessage: " + newlogMessage);
-
         Logger.create({timestamp: new Date(), message: newlogMessage}).exec(function(err){
 
             if(err){

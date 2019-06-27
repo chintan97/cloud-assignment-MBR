@@ -26,17 +26,20 @@ module.exports = {
             
                 authorized = false;
                 errorMessage =  "We are having troubles connecting to the database, please try again later";
+                Logger.log("Employer","[Authentication] Troubles connecting to Employer database");
 
             //If undefined, employee does not exist
             }else if(!employee){
 
                 authorized = false;
                 errorMessage = "Incorrect credentials, please try again";
+                Logger.log("Employer","[Authentication] Employee not found in Employer database");
 
             //If found, user credientials are valid    
             }else{
 
                 authorized = true;
+                Logger.log("Employer","[Authentication] Employee successfully found in Employer database");
             }
 
             //return results
@@ -61,15 +64,17 @@ module.exports = {
             //Database error
             if(err){
                 errorMessage =  "We are having troubles connecting to the database, please try again later";
+                Logger.log("Employer","[retrieveData] Troubles connecting to Employer database");
             }
             
     
             if(employee){
                 errorMessage = "Success"
-                Logger.log("Employer","Success");
+                Logger.log("Employer","[retrieveData] Employee data successfully retrieved found in Employer database");
 
             }else{
                 errorMessage = "Employee not found";
+                Logger.log("Employer","[retrieveData] Employee data was not retrieved from Employer database");
             }
 
             //return results
