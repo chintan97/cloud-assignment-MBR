@@ -8,7 +8,7 @@
                       $.ajax({
                           type : "POST",
                           // web service url
-                          url:"http://localhost:3000/FundsForm",
+                          url:"http://localhost:1338/FundsForm",
                           data : {
                             "name":$("#name").val(),
                             "email":$("#email").val(),
@@ -26,7 +26,7 @@
                               $("#fundsform")[0].reset();
                               $("#showApplicationID").html('<p>Thanks for submitting application</p>' +
                                 'Your application ID: ' + response.data.id);
-                              $("#showApplicationLink").html('Your application URL: http://example.com/authenticate/' + response.data.id +
+                              $("#showApplicationLink").html('Your application URL: http://localhost:1338' + 
                                 '<p>You need to submit details to your employer portal to approve the application.</p>' +
                                 '<p>You can check application status by logging in to our portal.</p>');
                           }
