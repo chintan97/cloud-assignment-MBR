@@ -5,5 +5,5 @@ WORKDIR /app
 COPY package.json /app/
 RUN npm install
 COPY . /app
-EXPOSE 1502
+EXPOSE 1500
 CMD ["sails", "lift"]
