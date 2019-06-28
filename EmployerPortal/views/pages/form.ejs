@@ -1,11 +1,11 @@
-<div class="container" style="background-color: blue; margin-top: 5%">
+<div class="container" style="background-color: blue; margin-top: 1%">
         <div class = "jumbotron" style="background-color: lightgray">
    
         
     <h1 class="display-4 text-center">Mortgage Form</h1>
    
         
-    <br>
+   
     <div class="row text-center">
 
             <!-- COLUMN 1 -->
@@ -18,17 +18,17 @@
 
                     <p class="text-center" id="user" name="user"><%=req.session.userid%></p>
                     <div class="form-group">
-                      <label for="mid"><strong>Mortgage Id:</strong></label>
+                      <label for="mid"><strong id="MID" style="font-size: 20px">Mortgage Id:</strong></label>
                       <input type="mid" name="mid" class="form-control" id="mid">
                     </div>
                 
                     <div class="form-group">
-                      <label for="lnk"><strong>Link:</strong></label>
+                      <label for="lnk"><strong id="LNK" style="font-size: 20px">Link:</strong></label>
                       <input type="lnk" name="lnk" class="form-control" id="lnk">
                       <p class="text-danger" id="linkTest"></p>
                     </div>
                 
-                    <br>
+                   
                     <p>By clicking "Agree" I give consent to providing personal information to an external party.</p>
                     <button type="submit" class="btn btn-primary">Agree</button>
                   </form>
@@ -45,7 +45,8 @@
 </div>
     </div>
 
-    <p id="result"></p>
+<div class = "container" style="background-color: blue;display: none" id="resultDiv" >
+<strong><p id="result" class="jumbotron" style="text-align: center; margin-bottom: 10%;font-size: 25px;background-color: lightgray"></p></strong></div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -102,6 +103,8 @@
         crossDomain:true,
         success: function(data){
 
+
+
           if(data.status == "ERROR")
           {
             $("#result").html("Error : " + data.error_message);
@@ -109,6 +112,9 @@
           else{
             $("#result").html("Result : " + data.status);
           }
+
+          $("#resultDiv").css("display","block");
+
         },
         error: function(error){
           $("#result").html("Error : Oops, there seems to be an error with the web service. Please try again later.");
