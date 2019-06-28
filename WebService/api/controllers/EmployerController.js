@@ -19,6 +19,20 @@ module.exports = {
         var id = req.param('id');
         var password = req.param('pwd');
 
+        if (id === undefined ||  password === undefined ) {
+
+            Logger.log("Employer","[ValidationError] Enter all the details!!");
+            return res.send({ErrorMessage : "Please enter all the details!"});
+        }
+        else if (id == '' || password == '' ) {
+           
+            Logger.log("Employer","[ValidationError] Employee details can not be null!!");
+            return res.send({ ErrorMessage : "Employee details can not be null!!"});
+
+        }
+        else
+        {
+
         Employer.findOne({ userId: id, userPassword: password}).exec(function(err,employee){
 
             //Database error
@@ -49,7 +63,8 @@ module.exports = {
                 ErrorMessage: errorMessage
             });
 
-        });
+         });
+        }
     },
 
     retrieveData :function(req, res){
