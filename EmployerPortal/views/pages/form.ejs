@@ -93,7 +93,7 @@
         type: 'POST', 
         data: {
           "mortgageID": mortgageID,
-          "employeeName": employee.userId,
+          "employeeName": (employee.userFirstName + " " + employee.userLastName),
           "employer_name": employee.employerName,
           "salary": employee.salary,
           "employment_length": employee.employmentLengthYears,
