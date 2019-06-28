@@ -18,13 +18,13 @@
 
                     <p class="text-center" id="user" name="user"><%=req.session.userid%></p>
                     <div class="form-group">
-                      <label for="mid"><strong id="MID" style="font-size: 20px">Mortgage Id:</strong></label>
-                      <input type="mid" name="mid" class="form-control" id="mid">
+                      <label for="mid" ><strong id="MID" style="font-size: 20px">Mortgage Id:</strong></label>
+                      <input type="number" name="mid" class="form-control" id="mid" required>
                     </div>
                 
                     <div class="form-group">
                       <label for="lnk"><strong id="LNK" style="font-size: 20px">Link:</strong></label>
-                      <input type="lnk" name="lnk" class="form-control" id="lnk">
+                      <input type="lnk" name="lnk" class="form-control" id="lnk" required>
                       <p class="text-danger" id="linkTest"></p>
                     </div>
                 
